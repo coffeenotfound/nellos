@@ -1,0 +1,22 @@
+{
+	"llvm-target": "x86_64-unknown-none",
+	"data-layout": "e-m:e-i64:64-f80:128-n8:16:32:64-S128",
+	"arch": "x86_64",
+	"os": "none",
+	"target-endian": "little",
+	"target-pointer-width": "64",
+	"target-c-int-width": "32",
+	"executables": true,
+	"exe-suffix": ".elf",
+	"dynamic-linking": false,
+	"relocation_model": "pic",
+	
+	"cpu": "core2", "__comment_l14": "Some basic x86_64 cpu without a lot of features",
+	"features": "-mmx,-sse,+soft-float", "__comment-l15": "Disable mmx, sse and floats in general (as they all use sse instructions) so we don't have to save/restore 10 gazillion registers in each ISR invocation [[NOTE: remember to zero out xmm,ymm,zmm,etc. state on context switch from a process with sse activated to one without]]",
+	"disable-redzone": true, "__comment-l16": "",
+	"panic-strategy": "abort",
+	"has_elf_tls": false,
+	
+    "linker-flavor": "ld.lld",
+	"__## linker": "rust-lld", "__comment-l20": "commented out because rust-lld freezes on win, don't know why... but not specifying a linker for flavor ld.lld seems to work just fine (and actually uses llvm's ld.ldd, unsurprisingly)"
+}
