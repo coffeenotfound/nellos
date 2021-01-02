@@ -1,3 +1,6 @@
 [submodule "kernel"]
 	path = kernel
 	url = https://github.com/coffeenotfound/nellos-kernel.git
+[submodule "bootloader_uefi"]
+	path = bootloader_uefi
+	url = https://github.com/coffeenotfound/nellos-bootloader-uefi.git
