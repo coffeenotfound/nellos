@@ -1,0 +1,7 @@
+[package]
+name = "newefi"
+version = "0.1.0"
+authors = ["Jan Katzer <jan@katzer.dev>"]
+edition = "2018"
+
+[dependencies]
