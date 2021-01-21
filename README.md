@@ -17,3 +17,14 @@ but let's not get ahead of selves, we don't even have an operating system yet.
 I believe this type of iterative developement is the perfect vector to a well designed end product,
 as proven beautifully by the Rust project.
 Just don't expect anything of quality right now... or in the near future. :sparkles:
+
+## Note About Submodules
+Right now in early developement the git submodules including kernel and bootloader will not
+be updated frequently to their latest commit. When developing make sure you manually pull
+their latest commits.
+
+The reason for this workflow is that it doesn't make sense right now.
+The "bound" commit of a submodule has semantic meaning (which version of
+kernel code for this operating system version?) but during active proof
+research development everything is in flux so much that there is little utility
+in indicating what version goes with what.
