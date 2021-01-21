@@ -7,6 +7,8 @@ cd "$(dirname "$0")"
 
 # Compile bootloader
 (
+	echo ""
+	echo ""
 	echo "Building bootloader..."
 	cd "../bootloader_uefi"
 	cargo build --target x86_64-unknown-uefi
@@ -14,6 +16,8 @@ cd "$(dirname "$0")"
 
 # Compile kernel
 (
+	echo ""
+	echo ""
 	echo "Building kernel..."
 	cd "../kernel"
 	cargo build --target x86_64-none-kernel-nabi.json
@@ -26,6 +30,8 @@ echo "kernel elf path: $kernel_elf_path"
 
 # Build disk image
 (
+	echo ""
+	echo ""
 	echo "Making disk image..."
 	cd "../tools/makediskimg"
 	cargo run -- --bootloaderefi="$bootloader_efi_path" --kernelelf="$kernel_elf_path"
@@ -42,6 +48,8 @@ test -e "./run/*" && rm -r "./run/*"
 cp "../tools/makediskimg/build/boot.img" "run/"
 
 # Run qemu
+echo ""
+echo ""
 echo "Running QEMU"
 #qemu-system-x86_64 --bios "$QEMU/_ovmf/RELEASEX64_OVMF.fd" -drive file=fat:rw:"./run/hda",format=raw -net none
 qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -drive file="run/boot.img",format=raw -net none
