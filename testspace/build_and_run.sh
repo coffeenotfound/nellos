@@ -51,5 +51,5 @@ cp "../tools/makediskimg/build/boot.img" "run/"
 echo ""
 echo ""
 echo "Running QEMU"
-#qemu-system-x86_64 --bios "$QEMU/_ovmf/RELEASEX64_OVMF.fd" -drive file=fat:rw:"./run/hda",format=raw -net none
-qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -drive file="run/boot.img",format=raw -net none
+qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -drive file="run/boot.img",format=raw -net none
+#qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -drive file="run/boot.img",format=raw -net none -s -S
