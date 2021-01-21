@@ -1,0 +1,8 @@
+[package]
+name = "prebootlib"
+version = "0.1.0"
+authors = ["Jan Katzer <jan@katzer.dev>"]
+edition = "2018"
+
+[dependencies]
+uefi_rs = {package = "uefi", version = "0.7.0", default-features = false, features = []}
