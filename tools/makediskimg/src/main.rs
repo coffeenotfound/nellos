@@ -45,7 +45,8 @@ fn main() {
 	
 	let gpt_block_size = 512;
 //	let disk_size_lba = 33_548_800 * 2 / block_size;
-	let disk_size_lba = (33_548_800 * 4) / gpt_block_size;
+	let disk_size_lba = (33_548_800 * 4) / gpt_block_size; // for 2 parts
+//	let disk_size_lba = (33_548_800 * 2) / gpt_block_size; // for 1 part
 	
 	let img_path = PathBuf::from("build/boot.img");
 	
