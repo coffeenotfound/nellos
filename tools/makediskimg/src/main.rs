@@ -145,6 +145,7 @@ fn build_efi_partition(booloader_efi_path: &Path) -> BuiltPartition {
 	{// Populate fs
 		// "../../bootloader_uefi/target/x86_64-unknown-uefi/debug/bootloader_uefi.efi"
 		copy_to_vfs(&mut vfs, booloader_efi_path, "/efi/boot/nell_foo/nellbootx64.efi").unwrap(); // Note that the nell folder can be custom named to allow multiple installations (all using the same efi system partition, as it should)
+		copy_to_vfs(&mut vfs, booloader_efi_path, "/efi/boot/bootx64.efi").unwrap(); // Needed for automatic boot instead of getting dumped into the uefi shell
 		copy_to_vfs(&mut vfs, booloader_efi_path, "/nellbootx64.efi").unwrap();
 	}
 	vfs.unmount().unwrap();
