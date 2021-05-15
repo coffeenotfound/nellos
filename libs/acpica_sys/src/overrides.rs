@@ -1,7 +1,23 @@
-// /#define\s+(\S+)(\s+)(\S+)\s+\((\S+)\)/
-// `pub const $1: ACPI_STATUS$2= $3($4);`
 
 use crate::*;
+
+/*
+#[derive(Copy, Clone, Eq, PartialEq)]
+#[repr(transparent)]
+pub struct ACPI_STATUS(UINT32);
+*/
+
+pub const TRUE: BOOLEAN = 1;
+pub const FALSE: BOOLEAN = 0;
+
+/// ACPI_SUCCESS
+pub fn AcpiIsSuccess(status: ACPI_STATUS) -> bool {
+	status == 0
+}
+/// ACPI_FAILURE
+pub fn AcpiIsFailure(status: ACPI_STATUS) -> bool {
+	status != 0
+}
 
 pub const fn EXCEP_ENV(code: u32) -> ACPI_STATUS {code | AE_CODE_ENVIRONMENTAL}
 pub const fn EXCEP_PGM(code: u32) -> ACPI_STATUS {code | AE_CODE_PROGRAMMER}
@@ -10,6 +26,9 @@ pub const fn EXCEP_AML(code: u32) -> ACPI_STATUS {code | AE_CODE_AML}
 pub const fn EXCEP_CTL(code: u32) -> ACPI_STATUS {code | AE_CODE_CONTROL}
 
 pub const AE_OK: ACPI_STATUS                           = 0x0000;
+
+// /#define\s+(\S+)(\s+)(\S+)\s+\((\S+)\)/
+// `pub const $1: ACPI_STATUS$2= $3($4);`
 
 /*
  * Environmental exceptions
