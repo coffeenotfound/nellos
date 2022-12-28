@@ -53,3 +53,5 @@ echo ""
 echo "Running QEMU"
 qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -smp 2 -drive file="run/boot.img",format=raw -net none
 #qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -smp 2 -drive file="run/boot.img",format=raw -net none -s -S
+
+# -serial tcp::4444,server=on

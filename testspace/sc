@@ -1,0 +1,4 @@
+target remote localhost:1234
+add-symbol-file "C:/Dev/Rust Workspace/nellos/kernel/target/x86_64-none-kernel-nabi/debug/kernel.elf" 0x2000000
+break _start
+continue
