@@ -1,0 +1,46 @@
+
+default:
+	#!/bin/bash
+	just --list
+	echo ""
+	echo "Use build_and_run_qemu to build and run qemu"
+
+build_bootloader:
+	cd ../bootloader_uefi \
+	&& cargo build --target x86_64-unknown-uefi
+
+build_kernel:
+	cd ../kernel \
+	&& cargo build --target x86_64-none-kernel-nabi.json
+
+create_diskimg:
+	#!/bin/bash
+	
+	bootloader_efi_path="$(pwd)/../bootloader_uefi/target/x86_64-unknown-uefi/debug/bootloader_uefi.efi"
+	kernel_elf_path="$(pwd)/../kernel/target/x86_64-none-kernel-nabi/debug/kernel.elf"
+	
+	cd "../tools/makediskimg"
+	cargo run -- --bootloaderefi="$bootloader_efi_path" --kernelelf="$kernel_elf_path"
+
+prepare_run_dir:
+	#!/bin/bash
+	# Prepare run dir
+	mkdir -p run
+	test -e run/* && rm -r run/*
+	
+	#mkdir -p ./run/hda
+	#cp ./target/x86_64-unknown-uefi/debug/bootloader_uefi.efi ./run/hda
+	
+	# Copy disk image
+	cp ../tools/makediskimg/build/boot.img run/
+
+build_all: build_bootloader build_kernel create_diskimg
+
+build_and_run_qemu: build_all prepare_run_dir && run_qemu
+
+run_qemu:
+	#!/bin/bash
+	qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -smp 2 -drive file="run/boot.img",format=raw -net none
+	
+	#qemu-system-x86_64 --bios $QEMU/_ovmf/RELEASEX64_OVMF.fd -m 512 -smp 2 -drive file="run/boot.img",format=raw -net none -s -S
+	# -serial tcp::4444,server=on
