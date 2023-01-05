@@ -11,13 +11,13 @@ build_bootloader:
 
 build_kernel:
 	cd ../kernel \
-	&& cargo build --target x86_64-none-kernel-nabi.json
+	&& cargo build --target x86_64-nell-kernel.json
 
 create_diskimg:
 	#!/bin/bash
 	
 	bootloader_efi_path="$(pwd)/../bootloader_uefi/target/x86_64-unknown-uefi/debug/bootloader_uefi.efi"
-	kernel_elf_path="$(pwd)/../kernel/target/x86_64-none-kernel-nabi/debug/kernel.elf"
+	kernel_elf_path="$(pwd)/../kernel/target/x86_64-nell-kernel/debug/kernel.elf"
 	
 	cd "../tools/makediskimg"
 	cargo run -- --bootloaderefi="$bootloader_efi_path" --kernelelf="$kernel_elf_path"
@@ -36,7 +36,7 @@ prepare_run_dir:
 
 build_all: build_bootloader build_kernel create_diskimg
 
-build_and_run_qemu: build_all prepare_run_dir && run_qemu
+build_and_run_qemu: build_all prepare_run_dir run_qemu
 
 run_qemu:
 	#!/bin/bash
